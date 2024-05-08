@@ -10,9 +10,9 @@ LINK = "https://ipv4.icanhazip.com/"                                            
 MAX_THREADS = 100                                                                                                       # Define the maximum number of threads
 TIMEOUT = 60                                                                                                            # Stop checking proxies after n seconds
 lock = threading.Lock()                                                                                                 # Only one thread works at a time
-write_to_file = "Working proxies.txt"                                                                                # File to write working proxies to
-proxy_list_small = "Proxy list short.txt"                                                                            # File containing a small list of proxies
-proxy_list_big = "Proxy list large.txt"                                                                                # File containing a big list of proxies
+write_to_file = "Working_proxies.txt"                                                                                # File to write working proxies to
+proxy_list_small = "Proxy_list_short.txt"                                                                            # File containing a small list of proxies
+proxy_list_big = "Proxy_list_large.txt"                                                                                # File containing a big list of proxies
 
 def check_one_proxy(proxy) :
     my_proxies = {                                                                                                      # Create a dictionary for the proxy
