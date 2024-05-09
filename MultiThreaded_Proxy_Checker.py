@@ -4,15 +4,14 @@ import concurrent.futures                                                       
 import threading                                                                                                        # Importing threading for working with threads
 from loguru import logger
 logger.remove()
-
-# Proxy_checker manual settings:
+                                                                                                                        # Proxy_checker manual settings:
 LINK = "https://ipv4.icanhazip.com/"                                                                                    # Site for checking IP
 MAX_THREADS = 100                                                                                                       # Define the maximum number of threads
 TIMEOUT = 60                                                                                                            # Stop checking proxies after n seconds
 lock = threading.Lock()                                                                                                 # Only one thread works at a time
-write_to_file = "Working_proxies.txt"                                                                                # File to write working proxies to
-proxy_list_small = "Proxy_list_short.txt"                                                                            # File containing a small list of proxies
-proxy_list_big = "Proxy_list_large.txt"                                                                                # File containing a big list of proxies
+write_to_file = "Working_proxies.txt"                                                                                   # File to write working proxies to
+proxy_list_small = "Proxy_list_short.txt"                                                                               # File containing a small list of proxies
+proxy_list_big = "Proxy_list_large.txt"                                                                                 # File containing a big list of proxies
 
 def check_one_proxy(proxy) :
     my_proxies = {                                                                                                      # Create a dictionary for the proxy
@@ -39,7 +38,7 @@ def check_proxy_list(proxies_list) :
     leng_from = len(proxies_list)
     logger.info(f"Received {leng_from} proxies. Starting checks in {MAX_THREADS} threads with a timeout of {TIMEOUT} seconds:")
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:                                    # Create a thread pool for parallel execution of checks
-        results = executor.map(check_one_proxy, proxies_list)                                                  # Start checking for each proxy in the list
+        results = executor.map(check_one_proxy, proxies_list)                                                           # Start checking for each proxy in the list
         for result in results:
             if result not in working_proxies_list and result is not None :                                              # If there is no working proxy in the list
                 working_proxies_list.append(result)                                                                     # Add the proxy to the list of working proxies
@@ -97,5 +96,5 @@ def get_connection_choice() :                                                   
             logger.info("Incorrect input. Please choose only 1, 2, or 3.")
 
 if __name__ == "__main__":
-    logger.add(sys.stdout, level="TRACE")
+    logger.add(sys.stdout, level="TRACE")                                                                             # Adding logger to output logs to stdout
     working_proxies_list = get_connection_choice()
